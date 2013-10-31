@@ -72,7 +72,7 @@ Eventually I'll get around to adding the following modules from llvm to liblls. 
 
 `liblls` is available under the same license as LLVM. This is included below for your viewing convenience.
 
-To make it as convenient as possible to use `liblls`, and to facilitate, I claim no copyright over any code I've written or changes I've made as part of `liblls`.
+To make it as convenient as possible to use `liblls`, and because the scope of my changes is miniscule, I claim no copyright over any code I've written or changes I've made as part of `liblls`.
 
 
     ==============================================================================
