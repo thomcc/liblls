@@ -55,19 +55,11 @@ liblls is configurable through the following preprocessor definitions and flags.
 
 - `LIBLLS_NO_VARIADIC_TEMPLATES`: Don't compile any functions which use variadic templates. Only applys to `SmallVector.h`, and is redundant if `LIBLLS_NO_CXX11` is defined. Undefined by default.
 
-- `LIBLLS_NO_DELETED_FN`: Don't use deleted functions to indicate... deleting... the function. Just make it private and unimplemented. This only applys to `SmallVector.h` and is redundant if `LIBLLS_NO_CXX11` is defined. Undefined by default.
+- `LIBLLS_NO_DELETED_FUNCTION`: Don't use deleted functions to indicate... deleting... the function. Just make it private and unimplemented. This only applys to `SmallVector.h` and is redundant if `LIBLLS_NO_CXX11` is defined. Undefined by default.
 
 ### Run the tests
 
 `liblls` borrows (steals) the its test files from llvm, so it has a fairly complete set of test files. You can compile and these using `make run-tests`. Or, equivalently, `make test && ./build/test-runner`.
-
-## Changes from LLVM
-
-The code in `liblls` differs from the code in llvm in the following ways:
-
-- in `SmallVector.h`:
-    - added `SmallVectorBase<T>::emplace_back` function when compiling with `LIBLLS_RVALUE_REFERENCES` and `LIBLLS_VARIADIC_TEMPLATES`.
-
 
 ## Planned additions
 Eventually I'll get around to adding the following modules from llvm to liblls. Don't hold your breath though.  Bug me if this matters to you or if theres something else I should add.
