@@ -265,6 +265,21 @@ public:
     this->grow();
     goto Retry;
   }
+
+#if LIBLLS_HAS_VARIADIC_TEMPLATES
+  template <class... Args>
+  void emplace_back(Args&&... As) {
+    if (this->EndX < this->CapacityX) {
+    Retry:
+      ::new ((void*) this->end()) T(::std::forward<Args>(As)...);
+      this->setEnd(this->end()+1);
+      return;
+    }
+    this->grow();
+    goto Retry;
+  }
+#endif
+
 #endif
 
   void pop_back() {

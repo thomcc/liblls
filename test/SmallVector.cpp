@@ -4,6 +4,7 @@
 #include "SmallVector.h"
 #include "gtest/gtest.h"
 #include <list>
+#include <memory>
 #include <stdarg.h>
 
 #ifndef LIBLLS_NO_NAMESPACE
@@ -476,5 +477,25 @@ TEST(SmallVectorCustomTest, NoAssignTest) {
   x = 42;
   EXPECT_EQ(42, vec.pop_back_val().x);
 }
+
+#if LIBLLS_HAS_RVALUE_REFERENCES && LIBLLS_HAS_VARIADIC_TEMPLATES
+struct move_constructable {
+
+  std::unique_ptr<int> x;
+  move_constructable(std::unique_ptr<int> v) : x(::std::move(v)) {}
+  move_constructable(move_constructable &&) = default;
+private:
+  move_constructable() LIBLLS_DELETED_FUNCTION;
+  move_constructable(move_constructable const &) LIBLLS_DELETED_FUNCTION;
+  move_constructable &operator=(move_constructable const &) LIBLLS_DELETED_FUNCTION;
+};
+
+TEST(SmallVectorCustomTest, EmplaceBackTest) {
+  std::unique_ptr<int> v(new int(4));
+  SmallVector<move_constructable, 2> vec;
+  vec.emplace_back(::std::move(v));
+  EXPECT_EQ(4, *vec.back().x);
+}
+#endif
 
 }
